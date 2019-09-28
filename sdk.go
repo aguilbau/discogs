@@ -115,7 +115,7 @@ func (c *Client) GetRelease(
 func (c *Client) GetLabelReleases(
 	ctx context.Context,
 	labelID int64,
-	pagination *PaginationParams) ([]LabelRelease, error) {
+	pagination *PaginationParams) (*LabelReleases, error) {
 
 	path := fmt.Sprintf("/labels/%d/releases", labelID)
 	if pagination != nil {
@@ -126,5 +126,5 @@ func (c *Client) GetLabelReleases(
 	if err := c.doRequest(ctx, "GET", path, nil, &labelReleases); err != nil {
 		return nil, err
 	}
-	return labelReleases.Releases, nil
+	return &labelReleases, nil
 }
